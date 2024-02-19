@@ -4,3 +4,4 @@ flask-mysql
 markdown
 flask_sqlalchemy
 pillow
+wtforms
