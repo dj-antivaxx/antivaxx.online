@@ -16,7 +16,7 @@
             {{ thread_header_macro(thread['title'], post, post['id'], posts_count, thread_url, show_full_thread) }}
         {% else %}
             {% set post = posts[i] %}
-            <div class="post_container">
+            <div class="post_container_full_thread">
                 {{ post_macro(post, post['id'], reply_view_recursion_cycle) }}
             </div>
         {% endif %}
@@ -30,7 +30,7 @@
             {% set posts_shown = posts_count %}
         {% endif %}
         {% for i in range(1, posts_shown) %}
-            <div class="post_container">
+            <div class="post_container_index">
                 {{ post_macro(posts[i], posts[i]['id'], reply_view_recursion_cycle) }}
             </div>
         {% endfor %}
@@ -39,7 +39,14 @@
 
 <style>
 
-    .post_container {
+    .post_container_index {
+        padding-bottom:5px;
+        padding-top:5px;
+        width: 90%;
+        margin-left: auto;
+    }
+
+    .post_container_full_thread {
         padding-bottom:5px;
         padding-top:5px;
     }
