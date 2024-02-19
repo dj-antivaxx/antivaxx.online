@@ -44,14 +44,15 @@ def create_table(connection):
     connection.executescript(schema_threads + schema_posts + schema_images)
 
 def fetch_all_threads_and_posts():
-    threads_data = []
-    posts_data = []
+    threads_and_posts_data = []
 
     conn = get_db_connection()
     threads = conn.execute('SELECT * FROM {};'.format( THREADS_TABLE_NAME)).fetchall()
     for thread in threads:
         thread_data = dict(thread)
-        threads_data.append(thread_data)
+        current_thread_data = {}
+        current_thread_data['thread_id'] = thread_data[THREADS_ID]
+        current_thread_data['thread_data'] = thread_data
 
         posts = conn.execute("SELECT * FROM {} WHERE {}=?;".format(POSTS_TABLE_NAME, POSTS_THREAD_ID), (thread_data[THREADS_ID], )).fetchall()
         
@@ -63,10 +64,11 @@ def fetch_all_threads_and_posts():
             post['images'] = [dict(image) for image in db_images]
             posts_list.append(post)
         
-        posts_data.append(posts_list)
+        current_thread_data['posts_data'] = posts_list
+        threads_and_posts_data.append(current_thread_data)
    
     conn.close()
-    return threads_data, posts_data
+    return threads_and_posts_data
 
 def get_post_by_id(variable):
     conn = get_db_connection()
