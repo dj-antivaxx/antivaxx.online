@@ -1,0 +1,43 @@
+{% from 'macroses/submit_post.html' import submit_post_macro %}
+{% from 'macroses/thread.html' import thread_macro %}
+
+{% extends "base.html" %}
+
+{% block content %}
+
+{{ submit_post_macro(true) }}
+
+{% set threads_count = threads|length %}
+
+{% if threads %}
+<div class="threads_index_container">
+    {% for i in range(threads_count) %}
+            {% set show_full_thread = false %}
+            <div class="thread_container">
+                {{ thread_macro(threads[i], posts[i], show_full_thread) }}
+            </div>
+            <hr>
+    {% endfor %}
+</div>
+{% endif %}
+
+<style>
+
+    .threads_index_container {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        display: block;
+        flex-direction: column; 
+    }
+
+     .thread_container {
+        padding-top: 0px;
+        padding-bottom: 0px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        display: flex;
+        flex-direction: column;
+    }
+</style>
+
+{% endblock %}

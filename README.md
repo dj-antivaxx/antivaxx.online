@@ -1,2 +1,1 @@
-# chan
-the anti image board 
+#hello  chan

@@ -1,0 +1,31 @@
+{% macro post_metadata_macro(date_time, post_id) %}
+
+<div class="metadata_container">
+    <div class="date_time_container">
+        {{ date_time }} 
+    </div>
+    <div class="post_id_container">
+        ID: #{{ post_id }}
+    </div>
+</div>
+
+<style>
+    .metadata_container {
+        margin-left: 0px; 
+        margin-bottom: 0px;
+        font-size: 13px;
+    }
+
+    .date_time_container {
+        display: inline-block;
+        margin-right: 5px;
+    }
+
+    .post_id_container {
+        display: inline-block;
+        font-weight: 500;
+        color: palevioletred;
+    }
+</style>
+
+{% endmacro %}

@@ -1,0 +1,6 @@
+flask
+flask-markdown
+flask-mysql
+markdown
+flask_sqlalchemy
+pillow

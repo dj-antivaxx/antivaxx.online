@@ -1,0 +1,56 @@
+{% from 'macroses/post.html' import post_macro %}
+{% from 'macroses/thread_header.html' import thread_header_macro %}
+{% from 'macroses/submit_post.html' import submit_post_macro %}
+{% from 'macroses/image_viewer.html' import image_viewer_macro %}
+
+{% macro thread_macro(thread, posts, show_full_thread) %}
+
+{% set reply_view_recursion_cycle = 0 %}
+{% set posts_count = posts|length %}
+{% set thread_url = thread['id'] %}
+
+{% if show_full_thread %}
+    {% for i in range(posts_count) %}
+        {% if i == 0 %}
+            {% set post = posts[i] %}
+            {{ thread_header_macro(thread['title'], post, post['id'], posts_count, thread_url, show_full_thread) }}
+        {% else %}
+            {% set post = posts[i] %}
+            <div class="post_container">
+                {{ post_macro(post, post['id'], reply_view_recursion_cycle) }}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% else %}
+    {% set post = posts[0] %}
+    {{ thread_header_macro(thread['title'], post, post['id'], posts_count, thread_url, show_full_thread) }}
+    {% if posts_count > 1 %}
+        {% set posts_shown = 3 %}
+        {% if posts_count < 3 %}
+            {% set posts_shown = posts_count %}
+        {% endif %}
+        {% for i in range(1, posts_shown) %}
+            <div class="post_container">
+                {{ post_macro(posts[i], posts[i]['id'], reply_view_recursion_cycle) }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endif %}
+
+<style>
+
+    .post_container {
+        padding-bottom:5px;
+        padding-top:5px;
+    }
+
+</style>
+
+<!-- A gimmick to allow pop-up full-size images in reply view -->
+
+{% set image = none %}
+{% set image_index = none %}
+{% set render_modal_only = true %}
+{{ image_viewer_macro(image, image_index, render_modal_only) }}
+
+{% endmacro %}

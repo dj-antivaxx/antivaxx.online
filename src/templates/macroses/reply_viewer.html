@@ -1,0 +1,35 @@
+{% macro reply_viewer_macro(reply, post, post_id, reply_view_recursion_cycle, reply_popup_id) %}
+
+{% from 'macroses/post.html' import post_macro %}
+
+<div id="highlighted_reply{{reply_popup_id}}" class="highlighted_reply">{{reply}}
+    <span id="reply_popup{{reply_popup_id}}" class="reply_popup">{{ post_macro(post, post_id, reply_view_recursion_cycle + 1) }}</span>
+</div>
+
+<style>
+    .highlighted_reply {
+        position: relative;
+        display: inline-block;
+        border-bottom: 1px dotted black;
+        color: rgb(119, 162, 241);
+    }
+
+    .highlighted_reply .reply_popup {
+        visibility: hidden;
+        width: 100vw;
+        max-width: 10000%;
+        background-color: white;
+        color: black;
+        border-style: solid;
+        border-width: 0.5px;
+        position: absolute;
+        z-index: 1;
+    }
+
+    #highlighted_reply{{reply_popup_id}}:hover #reply_popup{{reply_popup_id}} {
+        visibility: visible;
+    }
+
+</style> 
+
+{% endmacro %}

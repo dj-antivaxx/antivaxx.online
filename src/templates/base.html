@@ -1,0 +1,16 @@
+<!-- templates/base.html -->
+
+<!DOCTYPE html>
+
+<html>
+
+<body>
+    <nav class="navbar">        
+        <a class="navbar-item">CHAN</a>
+        <a href="{{ url_for('home.index') }}" class="navbar-item">Home</a>
+    </nav>   
+    {% block content %}
+    {% endblock %}
+</body>
+
+</html>

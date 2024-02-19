@@ -1,0 +1,84 @@
+{% from 'macroses/image_viewer.html' import image_viewer_macro %}
+{% from 'macroses/reply_viewer.html' import reply_viewer_macro %}
+{% from 'macroses/post_metadata.html' import post_metadata_macro %}
+
+{% macro post_macro(post, post_id, reply_view_recursion_cycle) %}
+
+{% if post is none %}
+    <div>Post not found!</div>
+{% else %}
+    <div class="mypost">
+        {{ post_metadata_macro(post['date_time'], post['id']) }}
+        <div class="text_and_images_container">
+            {% if post.images|length > 0 %}
+                <div class="images_container">
+                    {% for image in post.images %}
+                        {% set image_index = image['id']|string + "_" + post_id|string %}
+                        {% set render_modal_only = false %}
+                        <div class="image_and_metadata_container">
+                            <div class="image_metadata_container">
+                                <a style="font-size: 10px" href="{{ url_for('thread.upload', filename=image.download_link) }}" >{{image.filename}}</a>
+                            </div>
+                            <div class="image_container">
+                                {{ image_viewer_macro(image, image_index, render_modal_only) }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <div class="{{'right_text_container' if post.images|length == 1 else 'bottom_text_container'}}">
+                {% for line in post['rendered_content'] %}
+                    {% if line.type == 'text' %}
+                        {{ line['text'] | safe }}
+                    {% else %}
+                        {% set reply_popup_id = post_id|string + '_' + reply_view_recursion_cycle|string %}
+                        {% set reply_text = line['text'] %}
+                        {% set replied_post = line['quoted_post'] %}
+                        {{ reply_viewer_macro(reply_text, replied_post, post_id, reply_view_recursion_cycle, reply_popup_id) }}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+<style>
+    .mypost {
+        background-color: lightgray;
+        padding-bottom:10px;
+        padding-top:10px;
+        padding-left:5px;
+        padding-right:5px;
+        border-style: solid;
+        border-width: 0.1px;
+        border-color: grey;
+        margin-bottom: 0px;
+        margin-top: 10px;
+    }
+
+    .text_and_images_container {
+        display: inline-block;
+    }
+
+    .images_container {
+        display: inline-block;
+    }
+
+    .image_and_metadata_container {
+        float: left;
+        padding-left:5px;
+    }
+
+    .bottom_text_container {
+        float: bottom;
+        padding-left: 5px;
+    }
+
+    .right_text_container {
+        float: right;
+        padding-left: 20px;
+    }
+
+</style>
+
+{% endmacro %}

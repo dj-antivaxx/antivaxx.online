@@ -1,0 +1,57 @@
+{% macro image_viewer_macro(image, image_index, render_modal_only) %}
+
+{% if render_modal_only %}
+    <img id="clickable_image_{{image_index}}">
+{% else %}
+    <img id="clickable_image_{{image_index}}" src="{{ url_for('thread.upload', filename=image.download_link) }}"
+        style="max-width:200px;width:100%;cursor:pointer">
+{% endif %}
+
+<div id="modal_{{image_index}}" class="modal">
+    <img id="popup_image_{{image_index}}" class="popup_image">
+</div>
+
+<style>
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        padding-top: 100px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+    }
+
+    .popup_image {
+        margin: auto;
+        display: block;
+        width: 80%;
+        max-width: 700px;
+    }
+
+    /* for small screens */
+    @media only screen and (max-width: 700px) {
+        .popup_image {
+            width: 100%;
+        }
+    }
+</style>
+
+<script>
+    var modal = document.getElementById("modal_{{image_index}}");
+    console.log(modal)
+    modal.addEventListener('click', function () {
+        this.style.display = "none";
+    })
+
+    var clickableImg = document.getElementById("clickable_image_{{image_index}}");
+    var popupImage = document.getElementById("popup_image_{{image_index}}");
+    clickableImg.onclick = function () {
+        modal.style.display = "block";
+        popupImage.src = this.src;
+    }
+</script>
+
+{% endmacro %}

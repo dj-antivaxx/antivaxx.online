@@ -1,0 +1,13 @@
+{% from 'macroses/thread.html' import thread_macro %}
+{% from 'macroses/submit_post.html' import submit_post_macro %}
+
+{% extends "base.html" %}
+
+{% block content %}
+
+{{ submit_post_macro(false) }}
+
+{% set show_full_thread = true %}
+{{ thread_macro(thread, posts, show_full_thread) }}
+
+{% endblock %}

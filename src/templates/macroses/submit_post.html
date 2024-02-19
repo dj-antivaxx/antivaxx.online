@@ -1,0 +1,64 @@
+{% macro submit_post_macro(new_thread) %}
+
+<center>
+<form method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <table border="0">
+            <tbody>
+                {% if new_thread %}
+                <tr>
+                    <td><span class="badge badge-default"><textarea style="resize:none" type="text" name="title"
+                                placeholder="Title" class="form-control"
+                                value="{{ request.form['title'] }}" rows="1" cols="50"></textarea><br></i></span></td>
+                </tr>
+                {% endif %}
+                <tr colspan="2">
+                    <td colspan="2"><textarea style="resize:none" type="text" name="content"
+                            placeholder="Post content (markdown syntax supported)" class="form-control"
+                            value="{{ request.form['content'] }}" rows="10" cols="50" minlength="10"
+                            maxlength="1000"></textarea></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="custom-file">
+                            <input type="file" multiple onchange="previewMultiple(event)" class="custom-file-input"
+                                name="image" id="image" accept="image/*">
+                            <div id="galeria">
+
+                            </div>
+                            <!-- <img id="output"/> -->
+                            <style>
+                                #galeria {
+                                    display: flex;
+                                }
+
+                                #galeria img {
+                                    height: 85px;
+                                }
+                            </style>
+                            <script>
+                                function previewMultiple(event) {
+                                    var saida = document.getElementById("image");
+                                    var quantos = saida.files.length;
+                                    for (i = 0; i < quantos; i++) {
+                                        var urls = URL.createObjectURL(event.target.files[i]);
+                                        document.getElementById("galeria").innerHTML += '<img src="' + urls + '">';
+                                    }
+                                }
+                            </script>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</center>
+</form>
+<hr>
+
+
+{% endmacro %}
