@@ -1,22 +1,31 @@
-{% macro submit_post_macro(new_thread) %}
+{% macro submit_post_macro(new_thread, form) %}
 
 <center>
-<form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" novalidate>
     <div class="form-group">
         <table border="0">
             <tbody>
                 {% if new_thread %}
                 <tr>
-                    <td><span class="badge badge-default"><textarea style="resize:none" type="text" name="title"
-                                placeholder="Title" class="form-control"
-                                value="{{ request.form['title'] }}" rows="1" cols="50"></textarea><br></i></span></td>
+                    {{ form.title.label }}
+                    {{ form.title(size=20) }}
+                    {% for error in form.title.errors %}
+                         <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                    <!-- <td><span class="badge badge-default"><textarea style="resize:none" type="text" id="title" name="title"
+                                placeholder="title" class="form-control"
+                                rows="1" cols="50"></textarea><br></i></span></td> -->
                 </tr>
                 {% endif %}
                 <tr colspan="2">
-                    <td colspan="2"><textarea style="resize:none" type="text" name="content"
+                    {{ form.content.label }}
+                    {{ form.content(size=100) }}
+                    {% for error in form.content.errors %}
+                         <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                    <!-- <td colspan="2"><textarea style="resize:none" type="text" id="content" name="content"
                             placeholder="Post content (markdown syntax supported)" class="form-control"
-                            value="{{ request.form['content'] }}" rows="10" cols="50" minlength="10"
-                            maxlength="1000"></textarea></td>
+                            rows="10" cols="50"></textarea></td> -->
                 </tr>
                 <tr>
                     <td colspan="2">
@@ -53,9 +62,10 @@
         </table>
     </div>
     <br>
-    <div class="form-group">
+    <p>{{ form.submit() }}</p>
+    <!-- <div class="form-group">
         <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
+    </div> -->
 </center>
 </form>
 <hr>

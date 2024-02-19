@@ -5,7 +5,8 @@
 
 {% block content %}
 
-{{ submit_post_macro(true) }}
+{% set new_thread_form = true %}
+{{ submit_post_macro(new_thread_form, form) }}
 
 {% set threads_count = threads|length %}
 

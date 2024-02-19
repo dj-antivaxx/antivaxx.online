@@ -5,7 +5,8 @@
 
 {% block content %}
 
-{{ submit_post_macro(false) }}
+{% set new_thread_form = false %}
+{{ submit_post_macro(new_thread_form, form) }}
 
 {% set show_full_thread = true %}
 {{ thread_macro(thread, posts, show_full_thread) }}
