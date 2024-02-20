@@ -1,4 +1,4 @@
-{% macro submit_post_macro(new_thread, form) %}
+{% macro submit_post_macro(new_thread, form, image_error) %}
 
 <center>
 <form method="post" enctype="multipart/form-data" novalidate>
@@ -30,6 +30,9 @@
                         <div class="custom-file">
                             <input type="file" multiple onchange="previewMultiple(event)" class="custom-file-input"
                                 name="image" id="image" accept="image/*">
+                            {% if image_error %}
+                                <span style="color: red;">{{ image_error }}</span>
+                            {% endif %}
                             <div id="galeria">
 
                             </div>

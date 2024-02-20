@@ -23,6 +23,7 @@ def upload(filename):
 @thread_bp.route('/thread/<thread_id>', methods=['GET', 'POST'])
 def thread(thread_id):
     form = NewPost(request.form)
+
     if request.method == 'POST' and form.validate():
 
         content = parse_content(form.content.data)

@@ -6,7 +6,8 @@
 {% block content %}
 
 {% set new_thread_form = false %}
-{{ submit_post_macro(new_thread_form, form) }}
+{% set image_error = false %}
+{{ submit_post_macro(new_thread_form, form, image_error) }}
 
 {% set show_full_thread = true %}
 {{ thread_macro(thread, posts, show_full_thread) }}

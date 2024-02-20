@@ -22,18 +22,24 @@ class NewThreadForm(Form):
 @home.route('/', methods=('GET', 'POST'))
 def index():
     form = NewThreadForm(request.form)
+    image_error = None
     
     if request.method == 'POST' and form.validate():
-
-        content = parse_content(form.content.data)
-        title = form.title.data
         images = parse_request_images(request.files.getlist('image'))
-        
-        new_thread = True
-        sender_ip = None
-        thread_id = None
-        add_post(new_thread, content, sender_ip, images, thread_id, title)
-        return redirect(url_for('home.index'))
+        # this is a weird gimmick but i did try file uploader in the wtforms 
+        ## and it did not populate the files to form... idk
+        ## TODO: maybe fix this when i have time??? 
+        if not images:
+            image_error = 'No images uploaded!'
+        else:
+            content = parse_content(form.content.data)
+            title = form.title.data
+            
+            new_thread = True
+            sender_ip = None
+            thread_id = None
+            add_post(new_thread, content, sender_ip, images, thread_id, title)
+            return redirect(url_for('home.index'))
 
     threads_and_posts_data = fetch_all_threads_and_posts()
     threads_and_posts_data = order_threads_by_recent(threads_and_posts_data)
@@ -42,4 +48,4 @@ def index():
     threads_data = [data['thread_data'] for data in threads_and_posts_data]
     rendered_posts_data = render_all_posts(posts_data)        
         
-    return render_template('index.html', threads=threads_data, posts=rendered_posts_data, form=form)
+    return render_template('index.html', threads=threads_data, posts=rendered_posts_data, form=form, image_error=image_error)
