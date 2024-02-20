@@ -27,6 +27,7 @@ if __name__ == '__main__':
     
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + database_path
     app.config['SECRET_KEY'] = 'secret-key-goes-here'
+    app.config['UPLOAD_FOLDER'] = UPLOADS_DIR
 
     connection = sqlite3.connect(CURSOR_PATH)
 

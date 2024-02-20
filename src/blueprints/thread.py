@@ -2,15 +2,19 @@ from flask import Blueprint, render_template, request, send_from_directory, url_
 from database.database import get_posts_by_thread_id, get_thread_data_by_thread_id, add_post
 from utils.data_parsers import parse_content, parse_request_images
 from utils.data_rendering import render_thread_posts
-from wtforms import Form, StringField, SubmitField, validators
+from wtforms import Form, TextAreaField, SubmitField, validators
 
 from globals import RELATIVE_UPLOADS_DIR
 
 thread_bp = Blueprint('thread', __name__)
 
 class NewPost(Form):
-    content = StringField('content', validators=[validators.DataRequired(), validators.Length(min=4, max=15, message="Content is too long or too short!")])
-    submit = SubmitField('post')
+    content = TextAreaField('Text', validators=[
+        validators.InputRequired(message="Thread name please!"), 
+        validators.Length(min=4, message="Not enough content! :("), 
+        validators.Length(max=1000, message="Too much content!")], 
+        render_kw={'rows': 10, 'cols': 50, 'placeholder': 'Thread content! Markdown supported and min. 4 symbols!'})
+    submit = SubmitField('Submit!')
 
 @thread_bp.route('/uploads/<filename>')
 def upload(filename):

@@ -7,25 +7,23 @@
             <tbody>
                 {% if new_thread %}
                 <tr>
-                    {{ form.title.label }}
+                    <td>
                     {{ form.title(size=20) }}
+                    <br>
                     {% for error in form.title.errors %}
-                         <span style="color: red;">[{{ error }}]</span>
+                         <span style="color: red;">{{ error }}</span>
                     {% endfor %}
-                    <!-- <td><span class="badge badge-default"><textarea style="resize:none" type="text" id="title" name="title"
-                                placeholder="title" class="form-control"
-                                rows="1" cols="50"></textarea><br></i></span></td> -->
+                    </td>
                 </tr>
                 {% endif %}
                 <tr colspan="2">
-                    {{ form.content.label }}
+                    <td colspan="2">
                     {{ form.content(size=100) }}
+                    <br>
                     {% for error in form.content.errors %}
-                         <span style="color: red;">[{{ error }}]</span>
+                         <span style="color: red;">{{ error }}</span>
                     {% endfor %}
-                    <!-- <td colspan="2"><textarea style="resize:none" type="text" id="content" name="content"
-                            placeholder="Post content (markdown syntax supported)" class="form-control"
-                            rows="10" cols="50"></textarea></td> -->
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="2">
@@ -63,9 +61,6 @@
     </div>
     <br>
     <p>{{ form.submit() }}</p>
-    <!-- <div class="form-group">
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </div> -->
 </center>
 </form>
 <hr>
