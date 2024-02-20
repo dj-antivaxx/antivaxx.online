@@ -31,6 +31,11 @@ def index():
         ## TODO: maybe fix this when i have time??? 
         if not images:
             image_error = 'No images uploaded!'
+        # TODO: move to a method
+        elif any([image['resolution_x'] > 225 for image in images]) or any([image['resolution_y'] > 225 for image in images]) > 224:
+            image_error = 'Image too big!'
+        elif any([image['extension'] not in ['.jpeg', '.gif', '.png', '.jpg'] for image in images]):
+            image_error = 'Image file format not supported!'
         else:
             content = parse_content(form.content.data)
             title = form.title.data

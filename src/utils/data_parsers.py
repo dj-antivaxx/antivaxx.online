@@ -12,12 +12,18 @@ def parse_request_images(images_list):
     parsed_images = []    
     for image in images_list:
         image_filename = secure_filename(image.filename)
-        # pil_image = Image.open(image)
+    
+        with Image.open(image) as pil_image:
+            resolution_x, resolution_y = pil_image.size
+            size = pil_image.tell()
+        image.seek(0)
+
         parsed_images.append({
             'file': image,
             'filename': image_filename,
-            'resolution': 'None', #str(pil_image.size),
-            'size': 'None', #str(image.tell()),
+            'resolution_x': resolution_x,
+            'resolution_y': resolution_y,
+            'size': size,
             'extension': os.path.splitext(image_filename)[1]
         })
     return parsed_images

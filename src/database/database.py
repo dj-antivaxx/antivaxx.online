@@ -37,9 +37,10 @@ def create_table(connection):
         {} TEXT NOT NULL,
         {} TEXT NOT NULL,
         {} TEXT NOT NULL,
+        {} TEXT NOT NULL,
         {} TEXT NOT NULL
     );
-    """.format(IMAGES_TABLE_NAME, IMAGES_ID, IMAGES_POST_ID,IMAGES_FILE_NAME, IMAGES_RESOLUTION, IMAGES_SIZE, IMAGES_EXTENSION)
+    """.format(IMAGES_TABLE_NAME, IMAGES_ID, IMAGES_POST_ID,IMAGES_FILE_NAME, IMAGES_RESOLUTION_X, IMAGES_RESOLUTION_Y, IMAGES_SIZE, IMAGES_EXTENSION)
 
     connection.executescript(schema_threads + schema_posts + schema_images)
 
@@ -137,10 +138,11 @@ def insert_post_to_db(connection, post_in_thread_id, thread_id, post_content, se
         is_deleted))
 
 def add_image_to_db(connection, image, post_id):
-    connection.execute('INSERT INTO {} VALUES (NULL, ?, ?, ?, ?, ?)'.format(IMAGES_TABLE_NAME),
+    connection.execute('INSERT INTO {} VALUES (NULL, ?, ?, ?, ?, ?, ?)'.format(IMAGES_TABLE_NAME),
         (post_id, 
         image['filename'], 
-        image['resolution'], 
+        image['resolution_x'], 
+        image['resolution_y'],
         image['size'],
         image['extension']))
 
