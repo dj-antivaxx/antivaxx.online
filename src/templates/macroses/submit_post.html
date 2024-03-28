@@ -66,7 +66,18 @@
     <p>{{ form.submit() }}</p>
 </center>
 </form>
-<hr>
 
+<style>
+    input[type=file]::file-selector-button {
+        padding: .2em .4em;
+        border-radius: .2em;
+        background-color: lightgrey;
+        transition: 1s;
+    }
+
+    input[type=file]::file-selector-button:hover {
+        background-color: grey;
+    }
+</style>
 
 {% endmacro %}

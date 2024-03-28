@@ -8,13 +8,13 @@
     <div class="thread_header_metadata_container">
         <div class="thread_header_metadata_title_container">
             {% if not show_full_thread %}
-                <a href="{{ url_for('thread.thread', thread_id=thread_url) }}">{{thread_title}}</a>
+                <a href="{{ url_for('thread.thread', thread_id=thread_url) }}" style="color:#FFA4DE; padding-left: 5px;">{{thread_title}}</a>
+                <div class="thread_header_metadata_replies_count_container">
+                    ({{posts_count}} replies)
+                </div>
             {% else %}
-                {{thread_title}}
+                <div style="color:#FFA4DE; padding-left: 5px;">{{thread_title}}</div>
             {% endif %}
-        </div>
-        <div class="thread_header_metadata_replies_count_container">
-            ({{posts_count}} replies)
         </div>
         {{ post_metadata_macro(post['date_time'], post['id']) }}
     </div>
@@ -38,15 +38,20 @@
 
 <style>
     .thread_header_container {
-        background-color: white;
-        padding-bottom:0px;
-        padding-top:0px;
+        background-color: #E6F4FF;
+        padding-bottom:10px;
+        padding-top:10px;
         padding-left:5px;
         padding-right:5px;
+        border-style: solid;
+        border-width: 0.1px;
+        border-color: grey;
+        margin-bottom: 0px;
+        margin-top: 10px;
     } 
 
     .thread_header_metadata_container {
-        margin-left: 0px;
+        padding-left:0px;
     }
 
     .thread_header_metadata_title_container {
@@ -62,10 +67,15 @@
 
     .thread_header_images_container {
         display: inline-block;
+        padding-top:10px;
     }
 
     .thread_header_image_container {
         float: left;
+        padding-left:5px;
+    }
+
+    .thread_header_text_container {
         padding-left:5px;
     }
 

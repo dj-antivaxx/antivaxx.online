@@ -4,13 +4,51 @@
 
 <html>
 
-<body>
-    <nav class="navbar">        
-        <a class="navbar-item">CHAN</a>
-        <a href="{{ url_for('home.index') }}" class="navbar-item">Home</a>
-    </nav>   
+<body style="background-color:#FFE6F1;padding-top: 170px;">
+    <nav class="navbar" style="background-color:white;position:absolute;left:0;right:0;top:0;border-bottom: 1px solid black;">  
+            <div style="background-color:#FFE6F1;border-bottom: 1px solid black; font-size: 30px; padding-bottom: 20px; padding-top: 20px">
+                <center>
+                    CHAN
+                </center>
+            </div>
+        <div class="index_container">  
+            <center>
+                <div class="index_container_element">
+                    <div style="font-size: 20px;">
+                        <a href="{{ url_for('home.index') }}" class="index_link" style="color:#FFA4DE">Home</a>
+                        <a class="index_link">Link 1</a>
+                        <a class="index_link">Link 2</a>
+                    </div>
+                <div class="index_container_element" style="font-size: 15px;">
+                    Hello and welcome to the Chan! 
+                    <br>
+                    This is a test version.
+                </div>
+                </div>
+            </center>
+        </div>  
+    </nav>
     {% block content %}
     {% endblock %}
 </body>
+
+<style>
+    .index_link {
+        margin-right:20px;
+        margin-left:20px;
+    }
+
+    .index_container {
+        padding-top: 5px; 
+        padding-bottom: 5px; 
+        padding-left: 5px; 
+        font-size: 20px;
+    }
+
+    .index_container_element {
+        margin-top:5px;
+        margin-bottom:5px;
+    }
+</style>
 
 </html>

@@ -31,6 +31,7 @@
                     {% if line.type == 'text' %}
                         {{ line['text'] | safe }}
                     {% else %}
+                        <br>
                         {% set reply_popup_id = post_id|string + '_' + reply_view_recursion_cycle|string %}
                         {% set reply_text = line['text'] %}
                         {% set replied_post = line['quoted_post'] %}
@@ -44,7 +45,7 @@
 
 <style>
     .mypost {
-        background-color: lightgray;
+        background-color: #E6F4FF;
         padding-bottom:10px;
         padding-top:10px;
         padding-left:5px;
@@ -62,6 +63,7 @@
 
     .images_container {
         display: inline-block;
+        padding-top:10px;
     }
 
     .image_and_metadata_container {
