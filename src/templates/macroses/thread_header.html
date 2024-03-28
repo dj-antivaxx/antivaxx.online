@@ -8,7 +8,7 @@
     <div class="thread_header_metadata_container">
         <div class="thread_header_metadata_title_container">
             {% if not show_full_thread %}
-                <a href="{{ url_for('thread.thread', thread_id=thread_url) }}" style="color:#FFA4DE">{{thread_title}}</a>
+                <a href="{{ url_for('thread.thread', thread_id=thread_url) }}" style="color:#FFA4DE; padding-left: 5px;">{{thread_title}}</a>
             {% else %}
                 {{thread_title}}
             {% endif %}
@@ -51,7 +51,7 @@
     } 
 
     .thread_header_metadata_container {
-        margin-left: 0px;
+        padding-left:0px;
     }
 
     .thread_header_metadata_title_container {
@@ -71,6 +71,10 @@
 
     .thread_header_image_container {
         float: left;
+        padding-left:5px;
+    }
+
+    .thread_header_text_container {
         padding-left:5px;
     }
 
