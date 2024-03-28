@@ -8,7 +8,7 @@
     <div class="thread_header_metadata_container">
         <div class="thread_header_metadata_title_container">
             {% if not show_full_thread %}
-                <a href="{{ url_for('thread.thread', thread_id=thread_url) }}">{{thread_title}}</a>
+                <a href="{{ url_for('thread.thread', thread_id=thread_url) }}" style="color:#FFA4DE">{{thread_title}}</a>
             {% else %}
                 {{thread_title}}
             {% endif %}
@@ -38,11 +38,16 @@
 
 <style>
     .thread_header_container {
-        background-color: white;
-        padding-bottom:0px;
-        padding-top:0px;
+        background-color: #E6F4FF;
+        padding-bottom:10px;
+        padding-top:10px;
         padding-left:5px;
         padding-right:5px;
+        border-style: solid;
+        border-width: 0.1px;
+        border-color: grey;
+        margin-bottom: 0px;
+        margin-top: 10px;
     } 
 
     .thread_header_metadata_container {
