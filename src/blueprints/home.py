@@ -12,12 +12,12 @@ class NewThreadForm(Form):
         validators.InputRequired(message="Thread name please!"), 
         validators.Length(min=4, message="Title is too short!"), 
         validators.Length(max=15, message="Title is too long!")],
-        render_kw={'rows': 1, 'cols': 50, 'placeholder': 'Thread title! Min. 4 symbols :)'})
+        render_kw={'rows': 1, 'cols': 50, 'style':'resize:none;','placeholder': 'Thread title! Min. 4 symbols :)'})
     content = TextAreaField('Text', validators=[
         validators.InputRequired(message="What about some content? :("), 
         validators.Length(min=4, message="Not enough content! :("), 
         validators.Length(max=1000, message="Too much content!")], 
-        render_kw={'rows': 10, 'cols': 50, 'placeholder': 'Thread content! Markdown supported and min. 4 symbols!'})
+        render_kw={'rows': 10, 'cols': 50, 'style':'resize:none;', 'placeholder': 'Thread content! Markdown supported and min. 4 symbols!'})
     submit = SubmitField('Submit!')
 
 @home.route('/', methods=('GET', 'POST'))

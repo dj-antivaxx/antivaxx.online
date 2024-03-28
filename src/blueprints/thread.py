@@ -13,7 +13,7 @@ class NewPost(Form):
         validators.InputRequired(message="Thread name please!"), 
         validators.Length(min=4, message="Not enough content! :("), 
         validators.Length(max=1000, message="Too much content!")], 
-        render_kw={'rows': 10, 'cols': 50, 'placeholder': 'Thread content! Markdown supported and min. 4 symbols!'})
+        render_kw={'rows': 10, 'cols': 50, 'style':'resize:none;','placeholder': 'Thread content! Markdown supported and min. 4 symbols!'})
     submit = SubmitField('Submit!')
 
 @thread_bp.route('/uploads/<filename>')
