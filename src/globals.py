@@ -33,5 +33,8 @@ IMAGES_RESOLUTION_Y = "resolution_y"
 IMAGES_SIZE = "size"
 IMAGES_EXTENSION = "extension"
 
+IMAGE_MAX_RESOLUTION_X = 2048
+IMAGE_MAX_RESOLUTION_Y = 2048
+
 def create_board(board_name):
     os.mkdir(os.path.join(ARTIFACTS_DIR, board_name))
