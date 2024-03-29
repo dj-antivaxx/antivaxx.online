@@ -33,7 +33,6 @@ def render_post(post):
     for line in rendered_post[POSTS_CONTENT].split('<br>'):
         rendered_line = {}
         if re.match(">>\d+$", line):
-            print('reply find + {}'.format(line))
             rendered_line['text'] = line
             rendered_line['type'] = 'quote'
             quoted_post_id = line.split('>>')[1]
@@ -44,7 +43,6 @@ def render_post(post):
         else:
             # TODO: fix the finicky reply rendering pls [2]
             rendered_line['text'] = markdown.markdown(re.sub(r">>\d+", "", line))
-            print(rendered_line['text'])
             rendered_line['type'] = 'text'
         rendered_lines.append(rendered_line)
     rendered_post['rendered_content'] = rendered_lines
