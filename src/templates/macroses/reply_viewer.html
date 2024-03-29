@@ -9,7 +9,8 @@
 <style>
     .highlighted_reply {
         /* position: relative; */
-        display: inline-block;
+        /* display: inline-block; */
+        padding-top: 10px;
         color: #FFA4DE;
     }
 
@@ -20,11 +21,14 @@
         color: black;
         border-width: 0.5px;
         position: absolute;
+        display: none;
         z-index: 1;
+        margin-top:-7%; 
     }
 
     #highlighted_reply{{reply_popup_id}}:hover #reply_popup{{reply_popup_id}} {
         visibility: visible;
+        display: block;
     }
 
 </style> 

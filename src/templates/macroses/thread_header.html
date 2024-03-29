@@ -4,6 +4,8 @@
 
 {% macro thread_header_macro(thread_title, post, post_id, posts_count, thread_url, show_full_thread) %}
 
+{% set reply_view_recursion_cycle = 0 %}
+
 <div class="thread_header_container">
     <div class="thread_header_metadata_container">
         <div class="thread_header_metadata_title_container">
@@ -18,8 +20,8 @@
         </div>
         {{ post_metadata_macro(post['date_time'], post['id']) }}
     </div>
+    {% if post.images %}
     <div class="thread_header_images_container">
-        {% if post.images %}
         {% for image in post.images %}
             {% set image_index = image['id']|string + "_" + post_id|string %}
             {% set render_modal_only = false %}
@@ -27,19 +29,27 @@
                 {{ image_viewer_macro(image, image_index, render_modal_only) }}
             </div>
         {% endfor %}
-        {% endif %}
     </div>
+    {% endif %}
     <div class="thread_header_text_container">
-    {% for line in post['rendered_content'] %}
-    {{ line['text'] | safe }}
-    {% endfor %}
+        <!-- TODO: reuse the code in the post.html macro -->
+        {% for line in post['rendered_content'] %}
+            {% if line.type == 'text' %}
+                {{ line['text'] | safe }}
+            {% else %}
+                {% set reply_popup_id = post_id|string + '_' + reply_view_recursion_cycle|string %}
+                {% set reply_text = line['text'] %}
+                {% set replied_post = line['quoted_post'] %}
+                {{ reply_viewer_macro(reply_text, replied_post, post_id, reply_view_recursion_cycle, reply_popup_id) }}
+            {% endif %}
+        {% endfor %}
     </div>
 </div>
 
 <style>
     .thread_header_container {
         background-color: #E6F4FF;
-        padding-bottom:10px;
+        /* padding-bottom:10px; */
         padding-top:10px;
         padding-left:5px;
         padding-right:5px;

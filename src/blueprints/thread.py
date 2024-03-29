@@ -4,17 +4,17 @@ from utils.data_parsers import parse_content, parse_request_images
 from utils.data_rendering import render_thread_posts
 from wtforms import Form, TextAreaField, SubmitField, validators
 
-from globals import RELATIVE_UPLOADS_DIR
+from globals import RELATIVE_UPLOADS_DIR, MIN_THREAD_CONTENT_CHARACTERS,MAX_THREAD_CONTENT_CHARACTERS,IMAGE_MAX_RESOLUTION_X,IMAGE_MAX_RESOLUTION_Y
 
 thread_bp = Blueprint('thread', __name__)
 
 class NewPost(Form):
     content = TextAreaField('Text', validators=[
-        validators.InputRequired(message="Thread name please!"), 
-        validators.Length(min=4, message="Not enough content! :("), 
-        validators.Length(max=1000, message="Too much content!")], 
-        render_kw={'rows': 10, 'cols': 50, 'style':'resize:none;','placeholder': 'Thread content! Markdown supported and min. 4 symbols!'})
-    submit = SubmitField('Submit!')
+        validators.InputRequired(message="write something"), 
+        validators.Length(min=MIN_THREAD_CONTENT_CHARACTERS, message="thread content is {} characters minimum".format(MIN_THREAD_CONTENT_CHARACTERS)), 
+        validators.Length(max=MAX_THREAD_CONTENT_CHARACTERS, message="thread content is {} characters maximum".format(MAX_THREAD_CONTENT_CHARACTERS))], 
+        render_kw={'rows': 10, 'cols': 50, 'style':'resize:none;', 'placeholder': 'thread content - {} chars min, {} max\n\nmarkdown supported\n\npicture is optional, max resolution {}x{}, only .jpeg/.jpg/.png/.gif formats\n\nto reply to a post do >>postid and (important!) a line break\n\nfor example:\n\n>>2\nyowza!\n*this text is italic* and **this text is bold**'.format(MIN_THREAD_CONTENT_CHARACTERS, MAX_THREAD_CONTENT_CHARACTERS,IMAGE_MAX_RESOLUTION_X,IMAGE_MAX_RESOLUTION_Y)})
+    submit = SubmitField('post to thread!')
 
 @thread_bp.route('/uploads/<filename>')
 def upload(filename):
