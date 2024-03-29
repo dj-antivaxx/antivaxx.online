@@ -27,11 +27,11 @@
                 </div>
             {% endif %}
             <div class="{{'right_text_container' if post.images|length == 1 else 'bottom_text_container'}}">
+            <!-- TODO: reuse the code in the thread_header.html macro -->
                 {% for line in post['rendered_content'] %}
                     {% if line.type == 'text' %}
                         {{ line['text'] | safe }}
                     {% else %}
-                        <br>
                         {% set reply_popup_id = post_id|string + '_' + reply_view_recursion_cycle|string %}
                         {% set reply_text = line['text'] %}
                         {% set replied_post = line['quoted_post'] %}
@@ -46,7 +46,6 @@
 <style>
     .mypost {
         background-color: #E6F4FF;
-        /* padding-bottom:10px; */
         padding-top:10px;
         padding-left:5px;
         padding-right:5px;

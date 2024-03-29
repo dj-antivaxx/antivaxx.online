@@ -10,15 +10,17 @@
 {% set thread_url = thread['id'] %}
 
 {% if show_full_thread %}
-    {% for i in range(posts_count) %}
-        {% if i == 0 %}
-            {% set post = posts[i] %}
-            {{ thread_header_macro(thread['title'], post, post['id'], posts_count, thread_url, show_full_thread) }}
-        {% else %}
-            {% set post = posts[i] %}
+    <div class="full_thread_container">
+        {% for i in range(posts_count) %}
+            {% if i == 0 %}
+                {% set post = posts[i] %}
+                {{ thread_header_macro(thread['title'], post, post['id'], posts_count, thread_url, show_full_thread) }}
+            {% else %}
+                {% set post = posts[i] %}
                 {{ post_macro(post, post['id'], reply_view_recursion_cycle) }}
-        {% endif %}
-    {% endfor %}
+            {% endif %}
+        {% endfor %}
+    </div>
 {% else %}
     {% set post = posts[0] %}
     {{ thread_header_macro(thread['title'], post, post['id'], posts_count, thread_url, show_full_thread) }}
@@ -36,6 +38,12 @@
 {% endif %}
 
 <style>
+
+    .full_thread_container {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        flex-direction: column; 
+    }
 
     .post_container_index {
         width: 90%;
