@@ -18,8 +18,8 @@
         </div>
         {{ post_metadata_macro(post['date_time'], post['id']) }}
     </div>
+    {% if post.images %}
     <div class="thread_header_images_container">
-        {% if post.images %}
         {% for image in post.images %}
             {% set image_index = image['id']|string + "_" + post_id|string %}
             {% set render_modal_only = false %}
@@ -27,8 +27,8 @@
                 {{ image_viewer_macro(image, image_index, render_modal_only) }}
             </div>
         {% endfor %}
-        {% endif %}
     </div>
+    {% endif %}
     <div class="thread_header_text_container">
     {% for line in post['rendered_content'] %}
     {{ line['text'] | safe }}
@@ -39,7 +39,7 @@
 <style>
     .thread_header_container {
         background-color: #E6F4FF;
-        padding-bottom:10px;
+        /* padding-bottom:10px; */
         padding-top:10px;
         padding-left:5px;
         padding-right:5px;
