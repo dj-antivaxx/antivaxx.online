@@ -1,6 +1,7 @@
 import markdown
 
-from datetime import datetime, timedelta, date
+from datetime import datetime
+import re
 
 from database.database import get_post_by_id
 from globals import POSTS_DATE_TIME, POSTS_IMAGES, POSTS_CONTENT, IMAGES_EXTENSION
@@ -28,18 +29,22 @@ def render_thread_posts(thread_posts):
 def render_post(post):
     rendered_post = post
     rendered_lines = []
+    # TODO: fix the finicky reply rendering pls [1]
     for line in rendered_post[POSTS_CONTENT].split('<br>'):
         rendered_line = {}
-        if line.startswith('>>'):
+        if re.match(">>\d+$", line):
+            print('reply find + {}'.format(line))
             rendered_line['text'] = line
             rendered_line['type'] = 'quote'
-            quoted_post_id =  line.split('>>')[1]
+            quoted_post_id = line.split('>>')[1]
             quoted_post = get_post_by_id(quoted_post_id)
             rendered_line['quoted_post'] = None
             if quoted_post is not None:
                 rendered_line['quoted_post'] = render_post(quoted_post)
         else:
-            rendered_line['text'] = markdown.markdown(line)
+            # TODO: fix the finicky reply rendering pls [2]
+            rendered_line['text'] = markdown.markdown(re.sub(r">>\d+", "", line))
+            print(rendered_line['text'])
             rendered_line['type'] = 'text'
         rendered_lines.append(rendered_line)
     rendered_post['rendered_content'] = rendered_lines
