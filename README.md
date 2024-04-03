@@ -1,5 +1,8 @@
 # antivaxx.online
 
+[![License: CC0-1.0](https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg)](http://creativecommons.org/publicdomain/zero/1.0/)
+![GitHub Release](https://img.shields.io/github/v/release/dj-antivaxx/antivaxx.online)
+
 4chan-but-cute, pure flask+html/css, lean and minimal, no javascript bullshit. hosted and maintained by dj antivaxx at www.antivaxx.online
 
 ## local start
